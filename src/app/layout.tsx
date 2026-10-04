@@ -3,6 +3,8 @@ import { DM_Sans, JetBrains_Mono } from "next/font/google";
 
 import { site } from "@content/site";
 
+import { organizationJsonLd } from "@/lib/seo";
+
 import "./globals.css";
 
 const dmSans = DM_Sans({
@@ -41,6 +43,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       }
     >
       <body className="bg-surface text-fg-body flex min-h-full flex-col">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd()) }}
+        />
         <a
           href="#contenido"
           className="bg-accent text-on-accent sr-only rounded-md px-4 py-2 focus-visible:not-sr-only focus-visible:absolute focus-visible:top-4 focus-visible:left-4 focus-visible:z-50"
