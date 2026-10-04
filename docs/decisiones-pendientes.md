@@ -29,13 +29,13 @@ Lista viva. Cada decisión abierta se pregunta al usuario antes de asumirla (reg
 |---|---|---|---|
 | 1b | **Logo en vectorial (SVG)** | Hoy el header usa un wordmark provisional en texto. Hace falta el SVG para header, favicon y OG image. **Es el bloqueante más urgente.** | Header, favicon, OG |
 | 1c | **Bajada del logo** | "creativos argentina · diseño gráfico" apunta a un posicionamiento distinto del de Creative Factory. ¿Se mantiene, se cambia o se omite en la web? | Header, footer |
-| 1d | **Aprobar el mapa de servicios** | `docs/mapa-servicios.md`: 4 subpáginas en vez de 5, sale AI UGC (va a `/ia`), sale Creator Sourcing (va a `/creadores`), entra Creativos complementarios. | `/servicios` y sus subpáginas |
+| ~~1d~~ | ~~Aprobar el mapa de servicios~~ | **Aprobado el 2026-10-04 e implementado.** 4 subpáginas. | — |
 | 1e | **Claims de la bio de Instagram** | "Creativos con IA que venden (y mucho)", "máxima conversión". Chocan con el contexto §25, §31 y §36. Recomendación: sostener la promesa en volumen, velocidad y variedad. | Copy de hero y home |
 | 1f | **Desconexión perfil / web** | El perfil se llama "Gerencia de Anuncios" pero la web va a hablar sobre todo de creativos. ¿Se ajusta el perfil o la pauta gana más espacio? | Posicionamiento |
 | 2 | **Dominio** y cuenta de **Vercel** | ¿Existe dominio? ¿Quién crea el proyecto en Vercel? | Deploy |
-| 3 | **Remoto git** (GitHub / GitLab) | ¿Repo público o privado? ¿Quién lo crea? | Primer push |
-| 4 | **Destino de los leads** de marcas | Email (Resend) · Google Sheets · Airtable · Notion · CRM. Puede ser más de uno. | Server Action `submitBrandLead` |
-| 5 | **Destino de las aplicaciones de creadores** | Idem + almacenamiento del video. | Server Action `submitCreatorApplication` |
+| ~~3~~ | ~~Remoto git~~ | **Resuelto el 2026-10-04:** https://github.com/Giovanni2820/Laso-Ads, público por decisión del usuario pese a la advertencia sobre el `.docx` y el análisis del competidor. | — |
+| 4 | **Destino de los leads** de marcas | **Bloquea el lanzamiento.** Email (Resend) · Google Sheets · Airtable · CRM. Hoy la acción valida y registra en desarrollo, pero falla en producción a propósito: sin esto los formularios no sirven en vivo. | Server Action `submitBrandLead` |
+| 5 | **Destino de las aplicaciones de creadores** | Idem. El formulario todavía no pide video de presentación (depende de #7). | Server Action `submitCreatorApplication` |
 | 6 | **Herramienta de agenda** | Cal.com (gratis, open source) · Calendly · ninguna en v1 (solo formulario + WhatsApp). | `/contacto`, `/marcas`, CTA primario |
 | 7 | **Servicio de subida de video** para creadores | Vercel Blob · Cloudflare R2 · UploadThing. Tamaño máximo a definir (sugerido 200–500 MB). | Formulario de creadores |
 | 8 | **Analítica y píxeles** | Vercel Analytics · Meta Pixel · GA4. Texto del banner de consentimiento. | Layout, eventos de conversión |
@@ -84,9 +84,21 @@ Orden propuesto:
 2. ~~Scaffold Next.js + Tailwind + tooling~~ — **hecho el 2026-10-04**. Next 16.3.8, React 19.2.8, Tailwind v4, TypeScript estricto, ESLint, Prettier. `typecheck`, `lint`, `format:check` y `build` en verde. **Falta inicializar git** (requiere OK del usuario, CLAUDE.md §14.2). Playwright + axe quedan para cuando existan páginas reales.
 3. ~~Tokens y primitivos base~~ — **hecho el 2026-10-04**: las tres superficies, `Section`, `Container`, `Button`, `Logo`, `Header` (con menú móvil), `Footer`, helper `cn`, skip link, foco visible, `prefers-reduced-motion`. Referencia visual en `/estilo`.
 4. ~~Home con copy propio~~ — **hecho el 2026-10-04**: hero, problema, solución, servicios y formatos, creadores, IA, FAQ y CTA final. Copy en `content/home.ts`, primera versión a revisar. **Falta la sección de portfolio: no hay piezas cargadas.**
-5. `/servicios` + 5 subpáginas vía `ServicePageTemplate`.
-6. `/marcas` + formulario + agenda; `/contacto`; `/gracias`.
-7. `/creadores` + formulario con subida de video.
-8. `/ia`, `/faq`, `/portfolio`, `/casos`, legales.
-9. SEO técnico (metadata, OG, sitemap, JSON-LD) + analítica con consentimiento.
-10. QA: responsive (360/768/1440), axe, Lighthouse ≥ 90, formularios end-to-end.
+5. ~~Páginas internas, formularios y SEO técnico~~ — **hecho el 2026-10-04.** 16 rutas, formularios con Zod y honeypot, metadata por ruta, sitemap, robots y JSON-LD. La navegación estaba rota (10 enlaces a 404) y quedó cerrada.
+
+### Lo que falta para poder lanzar
+
+1. **Destino de los leads** (#4 y #5). Sin esto los formularios fallan en producción a propósito.
+2. **Logo en SVG** (#1b).
+3. **Piezas del portfolio** (#10).
+4. **Revisión legal** de privacidad y términos (#13, #14).
+5. **Dominio y deploy** (#2).
+6. Revisión del copy de la home y la FAQ por el usuario.
+7. Analítica con consentimiento (#8) y agenda (#6), si se decide sumarlas.
+
+### Deuda técnica conocida
+
+- El menú móvil usa `details`/`summary` en vez de un diálogo con foco atrapado, que es lo que pide §9 de `CLAUDE.md`. Funciona y es accesible por teclado, pero es una desviación consciente para no sumar dependencias.
+- Sin tests todavía: falta Playwright + axe sobre las rutas principales.
+- `npm audit` marca 5 high en la cadena del linter, sin parche upstream. Documentado en el README; el único "fix" baja `eslint-config-next` a v14 y rompe Next 16.
+- El formulario de creadores todavía no pide video de presentación: depende de decidir el servicio de subida (#7).

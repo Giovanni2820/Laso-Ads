@@ -98,16 +98,17 @@ Instagram: [@laso.ecomads](https://www.instagram.com/laso.ecomads) — "Laso Ads
 
 **Tensión detectada (2026-09-26), a resolver con el usuario:** la bio de Instagram promete resultados de venta ("creativos con IA que venden (y mucho)", "máxima conversión"). El contexto maestro (§25, §31, §36) prohíbe ese tipo de claim. En la web se sostiene la promesa en **volumen, velocidad y variedad**, que sí se pueden cumplir y demostrar. No se trasladan los claims de venta sin datos que los respalden.
 
-### Estado actual (2026-09-26)
+### Estado actual (2026-10-04)
 
-- Nombre definitivo: **Laso ADS**. Logo existente: wordmark "laso" en blanco sobre círculo negro, con bajada "creativos argentina · diseño gráfico". Falta la versión vectorial (SVG).
-- **Identidad visual aprobada:** dirección "Contraste por bloques" (tinta + crema + azul de marca). Paleta completa y tokens en `docs/identidad-visual.md`.
-- Tipografía: propuesta, pendiente de validar con muestras.
-- Dominio: pendiente.
-- **Hay piezas y clientes con permiso para publicar** → el portfolio se construye con contenido real, no como plantilla vacía. Faltan los archivos.
-- Sin métricas ni testimonios verificados: esos bloques siguen sin renderizarse hasta tener datos.
-- Sin precios definidos.
-- Sin código: el proyecto está en fase de preparación.
+- Nombre definitivo: **Laso ADS**. Logo existente: wordmark "laso" en blanco sobre círculo negro, con bajada "creativos argentina · diseño gráfico". **Falta la versión vectorial (SVG): el header usa hoy un wordmark provisional en texto.**
+- **Identidad visual y tipografía definidas.** Ver `docs/identidad-visual.md`.
+- **Sitio funcionando:** home completa, servicios con sus cuatro subpáginas, marcas, creadores, IA, FAQ, contacto, gracias, portfolio, casos y legales. 16 rutas, build en verde.
+- **Formularios armados pero sin destino.** La Server Action valida y registra en desarrollo; en producción falla explícitamente hasta que se decida dónde van los leads.
+- Repo: https://github.com/Giovanni2820/Laso-Ads (público, por decisión del usuario). Sin deploy todavía.
+- **Faltan las piezas del portfolio.** Hay permiso para publicar, faltan los archivos → `content/portfolio.ts` está vacío y la ruta lleva `noindex`.
+- Sin métricas, testimonios ni casos verificados: esos bloques no se renderizan.
+- Sin precios definidos. Sin dominio.
+- Legales en borrador, marcados en pantalla como pendientes de revisión.
 
 ---
 
@@ -231,7 +232,7 @@ Laso ADS/                          # raíz (nombre de carpeta existente)
     ├── app/
     │   ├── layout.tsx · page.tsx · globals.css · not-found.tsx · error.tsx
     │   ├── servicios/page.tsx
-    │   ├── servicios/{ugc-ads,creative-testing,ai-ugc,creative-factory,creator-sourcing}/page.tsx
+    │   ├── servicios/[slug]/page.tsx        # 4 servicios vía generateStaticParams
     │   ├── portfolio/page.tsx
     │   ├── casos/page.tsx · casos/[slug]/page.tsx
     │   ├── marcas/page.tsx
