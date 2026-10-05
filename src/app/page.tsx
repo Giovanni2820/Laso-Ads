@@ -5,6 +5,7 @@ import { Creators } from "@/components/sections/creators";
 import { Faq } from "@/components/sections/faq";
 import { FinalCta } from "@/components/sections/final-cta";
 import { Hero } from "@/components/sections/hero";
+import { PortfolioPreview } from "@/components/sections/portfolio-preview";
 import { Problem } from "@/components/sections/problem";
 import { Services } from "@/components/sections/services";
 import { Solution } from "@/components/sections/solution";
@@ -23,6 +24,7 @@ export default function Home() {
         <Problem />
         <Solution />
         <Services />
+        <PortfolioPreview />
         <Creators />
         <AiApproach />
         <Faq />

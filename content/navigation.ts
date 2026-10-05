@@ -1,3 +1,4 @@
+import { SHOW_PLACEHOLDERS } from "./placeholders";
 import { portfolio } from "./portfolio";
 
 export interface NavItem {
@@ -9,7 +10,7 @@ export interface NavItem {
 
 export const mainNav = [
   { label: "Servicios", href: "/servicios" },
-  { label: "Portfolio", href: "/portfolio", hidden: portfolio.length === 0 },
+  { label: "Portfolio", href: "/portfolio", hidden: portfolio.length === 0 && !SHOW_PLACEHOLDERS },
   { label: "Creadores", href: "/creadores" },
   { label: "IA", href: "/ia" },
   { label: "FAQ", href: "/faq" },
